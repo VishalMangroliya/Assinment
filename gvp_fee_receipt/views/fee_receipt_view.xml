@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View Of Fee Receiptn Information -->
+    <record id="fee_receipt_form_view" model="ir.ui.view">
+        <field name="name">fee.receipt.form.view</field>
+        <field name="model">fee.receipt</field>
+        <field name="arch" type="xml">
+            <form string="Fee Receipt">
+                <header>
+                    <field name="rec_state" widget="statusbar" nolabel="1"
+                           options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group col="4">
+                        <field name="fee_department_id"
+                               placeholder="Select Department"
+                               options="{'no_create': True, 'no_open': True}"
+                               required="1"
+                               attrs="{'readonly': [('name','!=','New')]}"/>
+                        <field name="receive_date"/>
+                        <field name="fee_head_id"
+                               domain="[('fee_department_id', '=',fee_department_id)]"
+                               options="{'no_create': True, 'no_open': True}"
+                               attrs="{'readonly': [('name','!=','New')]}"/>
+                        <field name="courses_id"
+                               attrs="{'invisible': [('is_student','!=',True)], 'required': [('is_student','=',True)]}"/>
+                        <field name="pay_name" placeholder="Name"
+                               required="1"/>
+                        <field name="edu_year"
+                               attrs="{'invisible': ['|', ('is_student','!=',True), ('is_semester', '=', True)], 'required': [('is_student','=',True), ('is_semester', '=', False)]}"/>
+                        <field name="semester"
+                               attrs="{'invisible': ['|',('is_student','!=',True), ('is_semester', '=', False)], 'required': [('is_student','=',True), ('is_semester', '=', True)]}"/>
+                        <field name="is_sevak_santan" attrs="{'invisible': [('is_student','!=',True)]}"/>
+                        <field name="is_student" invisible="1"/>
+                        <field name="is_semester" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                    </group>
+                    <group string='Fees Information' col="4"
+                           attrs="{'invisible': [('is_student','=',False)]}">
+                        <field name="education_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="semester_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="medical_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="internal_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="identity_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="library_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="name_registration_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="reading_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="practical_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="exam_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="department_reserve_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="student_board_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="computer_education_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="hostel_management_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="student_quarterly" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="game_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="text_literature_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="essay_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                        <field name="other_fee" force_save="1"
+                               attrs="{'readonly': [('is_student','=',True)]}"/>
+                    </group>
+                    <group string="Total" col="4">
+                        <field name="total_amount" widget="monetary"
+                               force_save="1"
+                               options="{'currency_field': 'currency_id'}"
+                               attrs="{'required': [('is_student','!=',True)], 'readonly': [('is_student','=',True)]}"/>
+                        <field name="received_option" required="1"/>
+                        <field name="bank_name"
+                               attrs="{'required': [('received_option', '=', 'check')], 'invisible': [('received_option', '!=', 'check')]}"/>
+                        <field name="check_number"
+                               attrs="{'required': [('received_option', '=', 'check')], 'invisible': [('received_option', '!=', 'check')]}"/>
+                        <field name="other"
+                               attrs="{'invisible': [('received_option', '!=', 'other')]}"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                    <group string="Note">
+                        <field name="note"/>
+                        <field name="academic_year_id" invisible="1"/>
+                        <field name="is_current_year" invisible="1"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"
+                           groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View Of Fee Receiptn Information -->
+    <record id="fee_receipt_tree_view" model="ir.ui.view">
+        <field name="name">fee.receipt.tree.view</field>
+        <field name="model">fee.receipt</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="rec_state == 'cancel'"
+                  decoration-info="is_current_year == False">
+                <field name="name"/>
+                <field name="receive_date"/>
+                <field name="pay_name"/>
+                <field name="courses_id"/>
+                <field name="edu_year"/>
+                <field name="semester"/>
+                <field name="total_amount" sum="Total Amount"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="rec_state"/>
+                <field name="note"/>
+                <field name="academic_year_id" invisible="1"/>
+                <field name="is_current_year" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Pivot View Of Fee fee.receipt -->
+    <record id="fee_receipt_pivot_view" model="ir.ui.view">
+        <field name="name">fee.receipt.view.pivot</field>
+        <field name="model">fee.receipt</field>
+        <field name="arch" type="xml">
+            <pivot string="Fee Receipt" disable_linking="True">
+                <field name="name" type="row"/>
+                <field name="edu_year" type="col"/>
+                <field name="total_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Search View Of Fee fee.receipt -->
+    <record id="fee_receipt_search_view" model="ir.ui.view">
+        <field name="name">receipt.search.view</field>
+        <field name="model">fee.receipt</field>
+        <field name="arch" type="xml">
+            <search string="Fee Receipt">
+                <field name="pay_name" string="Pay Name" filter_domain="['|','|','|','|', ('name','ilike',self),
+                ('pay_name','ilike',self), ('other', 'ilike', self), ('bank_name', 'ilike', self),
+                ('note', 'ilike', self)]"/>
+                <filter string="Current Year" name="is_current_year"
+                        domain="[('is_current_year','=',True)]"/>
+                <separator/>
+                <filter string="First Year" name="first_year"
+                        domain="[('edu_year','=','fy')]"/>
+                <filter string="Second Year" name="second_year"
+                        domain="[('edu_year','=','sy')]"/>
+                <filter string="Third Year" name="third_year"
+                        domain="[('edu_year','=','ty')]"/>
+                <separator/>
+                <filter string="Cancel" name="rec_state_cancel"
+                        domain="[('rec_state','=','cancel')]"/>
+                <filter string="Done" name="rec_state_done"
+                        domain="[('rec_state','=','done')]"/>
+                <filter string="Sevak Santan" name="is_sevak_santan"
+                        domain="[('is_sevak_santan','=',True),
+                        ('is_student','=',True), ('rec_state','=','done')]"/>
+                <group expand="0" name="group_by" string="Group By">
+                    <filter name="fee_department_id" string="Department"
+                            context="{'group_by' : 'fee_department_id'}"/>
+                    <filter name="fee_head_id" string="Head"
+                            context="{'group_by' : 'fee_head_id'}"/>
+                    <filter name="courses_id" string="Courses"
+                            context="{'group_by' : 'courses_id'}"/>
+                    <filter name="edu_year" string="Year"
+                            context="{'group_by': 'edu_year'}"/>
+                    <filter name="semester" string="Semester"
+                            context="{'group_by': 'semester'}"/>
+                    <filter name="receive_date" string="Receipt Date"
+                            context="{'group_by': 'receive_date'}"/>
+                    <separator/>
+                    <filter name="create_uid" string='Created'
+                            context="{'group_by': 'create_uid'}"/>
+                    <filter name="academic_year_id" string="Academic Year"
+                            context="{'group_by': 'academic_year_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action View Of Fee Receipt-->
+    <record id="action_fee_receipt" model="ir.actions.act_window">
+        <field name="name">Fee Receipt</field>
+        <field name="res_model">fee.receipt</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,pivot,search</field>
+        <field name="context">{"search_default_is_current_year":1}</field>
+    </record>
+
+</odoo>

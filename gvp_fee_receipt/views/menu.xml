@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- MenuItem For Configurations -->
+    <menuitem id="gvp_students_admission.menu_configuration"
+              name="Configurations" parent="gvp_students_admission.menu_gvp"
+              sequence="13"
+              groups="gvp_fee_receipt.group_gvp_account_admin,gvp_students_admission.group_school_administration"/>
+    <!-- MenuItem For Configurations->School Configurations -->
+    <menuitem id="gvp_students_admission.menu_school_config_form1"
+              name="College Configurations"
+              parent="gvp_students_admission.menu_configuration"
+              groups="gvp_fee_receipt.group_gvp_account_admin,gvp_students_admission.group_school_administration"/>
+    <!-- MenuItem For Configurations->Academic Years -->
+    <menuitem id="gvp_students_admission.menu_academic_year_form"
+              name="Academic Years"
+              parent="gvp_students_admission.menu_configuration"
+              groups="gvp_fee_receipt.group_gvp_account_admin,gvp_students_admission.group_school_administration"/>
+    <menuitem id="gvp_students_admission.menu_academic_year_sub_form"
+              name="Years"
+              parent="gvp_students_admission.menu_academic_year_form"
+              action="gvp_students_admission.action_academic_year_form"
+              groups="gvp_fee_receipt.group_gvp_account_admin,gvp_students_admission.group_school_administration"/>
+    <menuitem id="gvp_students_admission.menu_academic_month_form"
+              name="Months"
+              parent="gvp_students_admission.menu_academic_year_form"
+              action="gvp_students_admission.action_academic_month_form"
+              groups="gvp_fee_receipt.group_gvp_account_admin,gvp_students_admission.group_school_administration"/>
+    <menuitem id="gvp_students_admission.menu_courses_courses" name="Course"
+              parent="gvp_students_admission.menu_school_config_form1"
+              action="gvp_students_admission.action_courses_courses"
+              groups="gvp_fee_receipt.group_gvp_account_admin,gvp_students_admission.group_school_administration"/>
+
+    <!-- Menu Of Fee Configuration -->
+    <menuitem id="menu_fee" name="Fees"
+              parent="gvp_students_admission.menu_configuration"
+              groups="gvp_fee_receipt.group_gvp_account_admin,gvp_students_admission.group_school_administration"/>
+
+    <menuitem id="menu_fee_configuration" name="Fee Configuration"
+              action="action_fee_configuration"
+              sequence="1"
+              parent="menu_fee"/>
+
+    <menuitem id="menu_fee_department" name="Department"
+              action="action_fee_department"
+              sequence="2"
+              parent="menu_fee"/>
+
+    <menuitem id="menu_fee_head" name="Heads"
+              action="action_fee_head"
+              sequence="3"
+              parent="menu_fee"/>
+
+    <menuitem id="hr.menu_hr_root"
+              name="Employees"
+              groups="-hr.group_hr_manager,-hr.group_hr_user,-base.group_user,gvp_students_admission.group_school_administration,gvp_fee_receipt.group_gvp_account_admin"
+              web_icon="hr,static/description/icon.png"
+              sequence="75"/>
+
+    <!-- Menu Of Fee Receipt -->
+    <menuitem id="menu_fee_receipt" name="Fee Receipt"
+              action="gvp_fee_receipt.action_fee_receipt"
+              parent="gvp_students_admission.menu_gvp"
+              groups="gvp_fee_receipt.group_gvp_account_admin,gvp_fee_receipt.group_gvp_account,gvp_students_admission.group_school_administration"/>
+
+    <!-- Menu Of Report -->
+    <menuitem id="menu_master_report" name="Report"
+              action="gvp_fee_receipt.action_wiz_master_report"
+              parent="gvp_students_admission.menu_gvp"
+              groups="gvp_fee_receipt.group_gvp_account_admin"
+              sequence="12"/>
+
+</odoo>

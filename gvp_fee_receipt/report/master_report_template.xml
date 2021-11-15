@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="external_layou_master_report">
+        <div class="row">
+            <div class="col-12">
+                <center>
+                    <h4>
+                        <span t-esc="user.company_id.street"/>
+                    </h4>
+                    <h5><span t-esc="user.company_id.street2"/><br/>
+                        <strong>તા, જિ.</strong>
+                        <span
+                                t-esc="user.company_id.city"/>
+                        <strong>-</strong>
+                        <span t-esc="user.company_id.zip"/>
+                        <br/>
+                        ફોન :
+                        <span t-esc="user.company_id.phone"/>
+                        <strong><h6 t-if="dept_id">વિભાગ: <span t-esc="dept_id"/></h6></strong>
+                    </h5>
+                </center>
+            </div>
+        </div>
+    </template>
+
+    <template id="master_report">
+        <t t-call="web.html_container">
+            <t t-set="root_dict" t-value="getreport_data"/>
+            <t t-foreach="root_dict.keys()" t-as="dict_keys">
+                <t t-set="report_dict" t-value="root_dict.get(dict_keys)"/>
+                <t t-foreach="report_dict.keys()" t-as="dept">
+                    <t t-if="dict_keys == 'subject' or (dict_keys != 'subject' and dept_last)" t-call="web.basic_layout">
+                        <div class="page">
+                            <t t-set="index" t-value="0"/>
+                            <t t-set="education_fee" t-value="0"/>
+                            <t t-set="semester_fee" t-value="0"/>
+                            <t t-set="medical_fee" t-value="0"/>
+                            <t t-set="internal_fee" t-value="0"/>
+                            <t t-set="game_fee" t-value="0"/>
+                            <t t-set="identity_fee" t-value="0"/>
+                            <t t-set="library_fee" t-value="0"/>
+                            <t t-set="name_registration_fee" t-value="0"/>
+                            <t t-set="reading_fee" t-value="0"/>
+                            <t t-set="practical_fee" t-value="0"/>
+                            <t t-set="exam_fee" t-value="0"/>
+                            <t t-set="department_reserve_fee" t-value="0"/>
+                            <t t-set="student_board_fee" t-value="0"/>
+                            <t t-set="computer_education_fee" t-value="0"/>
+                            <t t-set="hostel_management_fee" t-value="0"/>
+                            <t t-set="student_quarterly" t-value="0"/>
+                            <t t-set="game_fee" t-value="0"/>
+                            <t t-set="total_amount" t-value="0"/>
+                            <t t-set="text_literature_fee" t-value="0"/>
+                            <t t-set="essay_fee" t-value="0"/>
+                            <t t-set="other_fee" t-value="0"/>
+                            <t t-set="total_stu" t-value="0"/>
+                            <div class="oe_structure"/>
+                            <div>
+                                <t t-call="gvp_fee_receipt.external_layou_master_report">
+                                    <t t-if="dict_keys == 'subject'" t-set="dept_id" t-value="dept.name"/>
+                                </t>
+                                <table class="table table-bordered table-sm table_border"
+                                       style="border: 2px solid black; font-size: 12px;">
+                                    <tr style="border: 2px solid black;">
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">ક્રમ
+                                        </th>
+                                        <th t-if="dict_keys == 'subject'" style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            વિષય
+                                        </th>
+                                        <th t-if="dict_keys == 'depat'" style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            વિભાગનું નામ
+                                        </th>
+                                        <th t-if="dict_keys == 'subject'" style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            વર્ષ/ સત્ર
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            વિ. સંખ્યા
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            શિક્ષણ ફી
+                                        </th>
+                                        <th style="text-align: center;border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            સત્ર ફી
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            દાકતર ફી
+                                        </th>
+                                         <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                             આંતરિક ફી
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            વિ. ત્રિમા. લ.
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            રમત ગમત ફી
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            ઓળખ પ. ફી
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            ગ્રંથાલય ફી
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            નામ નોધણી  ફી
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            વાંચન સા. ફી
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                             પ્રાયોગિક ફી
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            પરીક્ષા ફી
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            કો. શિ. ફી/ક. એન્ડ સો.
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            વિભાગ અ. ફી
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            વિદ્યાર્થી મંડળ ફી
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            છા. વ્ય. ફી
+                                        </th>
+
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            પાઠ્ય ચાહિત્ય
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            નિબંધ ફી
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            અન્ય
+                                        </th>
+                                        <th style="text-align: center; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                            કુલ રકમ
+                                        </th>
+                                    </tr>
+                                    <!-- Department -->
+                                    <t t-if="dict_keys == 'depat' and dept_last" t-foreach="report_dict.keys()" t-as="year">
+                                        <t t-set="data_dict" t-value="report_dict.get(year)"/>
+                                        <tr style="border: 2px solid black;">
+                                            <td style="text-align: center; border: 2px solid black;">
+                                                <t t-set="index" t-value="index + 1"/>
+                                                <span t-esc="index"/>
+                                            </td>
+                                            <td style="width: 19%; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                                <span t-esc="year.name"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('total_std')"/>
+                                                <t t-set="total_stu" t-value="total_stu + data_dict.get('total_std')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('education_fee')"/>
+                                                <t t-set="education_fee" t-value="education_fee + data_dict.get('education_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('semester_fee')"/>
+                                                <t t-set="semester_fee" t-value="semester_fee + data_dict.get('semester_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('medical_fee')"/>
+                                                <t t-set="medical_fee" t-value="medical_fee + data_dict.get('medical_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('internal_fee')"/>
+                                                <t t-set="internal_fee" t-value="internal_fee + data_dict.get('internal_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('student_quarterly')"/>
+                                                <t t-set="student_quarterly" t-value="student_quarterly + data_dict.get('student_quarterly')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('game_fee')"/>
+                                                <t t-set="game_fee" t-value="data_dict.get('game_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('identity_fee')"/>
+                                                <t t-set="identity_fee" t-value="identity_fee + data_dict.get('identity_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('library_fee')"/>
+                                                <t t-set="library_fee" t-value="library_fee + data_dict.get('library_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('name_registration_fee')"/>
+                                                <t t-set="name_registration_fee" t-value="name_registration_fee + data_dict.get('name_registration_fee')"/>
+
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('reading_fee')"/>
+                                                <t t-set="reading_fee" t-value="reading_fee + data_dict.get('reading_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('practical_fee')"/>
+                                                <t t-set="practical_fee" t-value="practical_fee + data_dict.get('practical_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('exam_fee')"/>
+                                                <t t-set="exam_fee" t-value="exam_fee + data_dict.get('exam_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('computer_education_fee')"/>
+                                                <t t-set="computer_education_fee" t-value="computer_education_fee + data_dict.get('computer_education_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('department_reserve_fee')"/>
+                                                <t t-set="department_reserve_fee" t-value="department_reserve_fee + data_dict.get('department_reserve_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('student_board_fee')"/>
+                                                <t t-set="student_board_fee" t-value="student_board_fee + data_dict.get('student_board_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('hostel_management_fee')"/>
+                                                <t t-set="hostel_management_fee" t-value="hostel_management_fee + data_dict.get('hostel_management_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('text_literature_fee')"/>
+                                                <t t-set="text_literature_fee" t-value="text_literature_fee + data_dict.get('text_literature_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('essay_fee')"/>
+                                                <t t-set="essay_fee" t-value="essay_fee + data_dict.get('essay_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <span t-esc="data_dict.get('other_fee')"/>
+                                                <t t-set="other_fee" t-value="other_fee + data_dict.get('other_fee')"/>
+                                            </td>
+                                            <td style="text-align: right; border: 2px solid black;">
+                                                <strong><span t-esc="data_dict.get('total_amount')" t-options='{"widget": "monetary", "display_currency": user.company_id.currency_id}'/>
+                                                </strong>
+                                                <t t-set="total_amount" t-value="total_amount + data_dict.get('total_amount')"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-set="course_dict" t-value="report_dict.get(dept)"/>
+
+                                    <!-- Subject -->
+                                    <t t-if="dict_keys == 'subject'" t-foreach="course_dict.keys()" t-as="course">
+                                        <t t-set="total_year" t-value="len(list(course_dict.get(course).keys()))"/>
+                                        <t t-set="year_dict" t-value="course_dict.get(course)"/>
+                                        <t t-foreach="year_dict.keys()" t-as="year">
+                                            <t t-set="data_dict" t-value="year_dict.get(year)"/>
+                                            <tr style="border: 2px solid black;">
+                                                <td style="text-align: center; border: 2px solid black;">
+                                                    <t t-set="index" t-value="index + 1"/>
+                                                    <span t-esc="index"/>
+                                                </td>
+                                                <td t-if="year_first" style="width: 19%; border: 2px solid black; text-align: center; vertical-align: middle;"  t-att-rowspan="total_year">
+                                                    <span t-esc="course.name"/>
+                                                </td>
+                                                <td style="width: 6%; border: 2px solid black; text-align: center; vertical-align: middle;">
+                                                    <t t-if="year == 'fy'">વર્ષ ૧</t>
+                                                    <t t-if="year == 'sy'">વર્ષ ૨</t>
+                                                    <t t-if="year == 'ty'">વર્ષ 3</t>
+                                                    <t t-if="year == '1'"> સત્ર ૧</t>
+                                                    <t t-if="year == '2'"> સત્ર ૨</t>
+                                                    <t t-if="year == '3'"> સત્ર 3</t>
+                                                    <t t-if="year == '4'"> સત્ર ૪</t>
+                                                    <t t-if="year == '5'"> સત્ર ૫</t>
+                                                    <t t-if="year == '6'"> સત્ર ૬</t>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('total_std')"/>
+                                                        <t t-set="total_stu" t-value="total_stu + data_dict.get('total_std')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('education_fee')"/>
+                                                    <t t-set="education_fee" t-value="education_fee + data_dict.get('education_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('semester_fee')"/>
+                                                    <t t-set="semester_fee" t-value="semester_fee + data_dict.get('semester_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('medical_fee')"/>
+                                                    <t t-set="medical_fee" t-value="medical_fee + data_dict.get('medical_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('internal_fee')"/>
+                                                    <t t-set="internal_fee" t-value="internal_fee + data_dict.get('internal_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('student_quarterly')"/>
+                                                    <t t-set="student_quarterly" t-value="student_quarterly + data_dict.get('student_quarterly')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('game_fee')"/>
+                                                    <t t-set="game_fee" t-value="data_dict.get('game_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('identity_fee')"/>
+                                                    <t t-set="identity_fee" t-value="identity_fee + data_dict.get('identity_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('library_fee')"/>
+                                                    <t t-set="library_fee" t-value="library_fee + data_dict.get('library_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('name_registration_fee')"/>
+                                                    <t t-set="name_registration_fee" t-value="name_registration_fee + data_dict.get('name_registration_fee')"/>
+
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('reading_fee')"/>
+                                                    <t t-set="reading_fee" t-value="reading_fee + data_dict.get('reading_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('practical_fee')"/>
+                                                    <t t-set="practical_fee" t-value="practical_fee + data_dict.get('practical_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('exam_fee')"/>
+                                                    <t t-set="exam_fee" t-value="exam_fee + data_dict.get('exam_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('computer_education_fee')"/>
+                                                    <t t-set="computer_education_fee" t-value="computer_education_fee + data_dict.get('computer_education_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('department_reserve_fee')"/>
+                                                    <t t-set="department_reserve_fee" t-value="department_reserve_fee + data_dict.get('department_reserve_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('student_board_fee')"/>
+                                                    <t t-set="student_board_fee" t-value="student_board_fee + data_dict.get('student_board_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('hostel_management_fee')"/>
+                                                    <t t-set="hostel_management_fee" t-value="hostel_management_fee + data_dict.get('hostel_management_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('text_literature_fee')"/>
+                                                    <t t-set="text_literature_fee" t-value="text_literature_fee + data_dict.get('text_literature_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('essay_fee')"/>
+                                                    <t t-set="essay_fee" t-value="essay_fee + data_dict.get('essay_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <span t-esc="data_dict.get('other_fee')"/>
+                                                    <t t-set="other_fee" t-value="other_fee + data_dict.get('other_fee')"/>
+                                                </td>
+                                                <td style="text-align: right; border: 2px solid black;">
+                                                    <strong><span t-esc="data_dict.get('total_amount')" t-options='{"widget": "monetary", "display_currency": user.company_id.currency_id}'/>
+                                                    </strong>
+                                                    <t t-set="total_amount" t-value="total_amount + data_dict.get('total_amount')"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <tr style="border: 2px solid black;">
+                                        <td t-if="dict_keys == 'subject'" colspan="3" style="text-align: center; border: 2px solid black;">
+                                            <strong>કુલ રકમ</strong>
+                                        </td>
+                                        <td t-if="dict_keys == 'depat'" colspan="2" style="text-align: center; border: 2px solid black;">
+                                            <strong>કુલ રકમ</strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong><span t-esc="total_stu"/></strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="education_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="semester_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="medical_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="internal_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="student_quarterly"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="game_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="identity_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="library_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="name_registration_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="reading_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="practical_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="exam_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="computer_education_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="department_reserve_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="student_board_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="hostel_management_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="text_literature_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="essay_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="other_fee"/>
+                                            </strong>
+                                        </td>
+                                        <td style="text-align: right; border: 2px solid black;">
+                                            <strong>
+                                                <span t-esc="total_amount"
+                                                      t-options='{"widget": "monetary", "display_currency": user.company_id.currency_id}'/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

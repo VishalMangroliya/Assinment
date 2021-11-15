@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View Of Fee Department Information -->
+    <record id="fee_department_form_view" model="ir.ui.view">
+        <field name="name">fee.department.form.view</field>
+        <field name="model">fee.department</field>
+        <field name="arch" type="xml">
+            <form string="Fee Department">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="sequence_id"/>
+                        <field name="is_student"/>
+                        <field name="sequence" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Heads">
+                            <field name="fee_head_ids">
+                                <tree>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="User Access">
+                            <group col="2">
+                                <group>
+                                    <field name="user_ids"
+                                           widget="many2many_tags"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View Of Fee Department Information -->
+    <record id="fee_department_tree_view" model="ir.ui.view">
+        <field name="name">fee.department.tree.view</field>
+        <field name="model">fee.department</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="sequence_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action View Of Fee Department-->
+    <record id="action_fee_department" model="ir.actions.act_window">
+        <field name="name">Fee Department</field>
+        <field name="res_model">fee.department</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

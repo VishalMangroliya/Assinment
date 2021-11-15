@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="gvp_student_seq_fee_receipt" model="ir.sequence">
+        <field name="name">GVP Student Sequence Fee Receipt</field>
+        <field name="code">fee.receipt.student</field>
+        <field name="prefix">H.E./%(y)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="gvp_cow_seq_fee_receipt" model="ir.sequence">
+        <field name="name">GVP Cow Sequence Fee Receipt</field>
+        <field name="code">fee.receipt.cow</field>
+        <field name="prefix">Gaushala/%(y)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="gvp_sociology_hostel_seq_fee_receipt" model="ir.sequence">
+        <field name="name">GVP Sociology Hostel Sequence Fee Receipt</field>
+        <field name="code">fee.receipt.sociology.hostel</field>
+        <field name="prefix">S.V.Ho./%(y)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="gvp_physical_hostel_seq_fee_receipt" model="ir.sequence">
+        <field name="name">GVP Physical Hostel Sequence Fee Receipt</field>
+        <field name="code">fee.receipt.physical.hostel</field>
+        <field name="prefix">phy. Hostel/%(y)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="gvp_girl_hostel_seq_fee_receipt" model="ir.sequence">
+        <field name="name">GVP Girls' Hostel Sequence Fee Receipt</field>
+        <field name="code">fee.receipt.girls.hostel</field>
+        <field name="prefix">Girls Hostel/%(y)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="gvp_biogas_boys_seq_fee_receipt" model="ir.sequence">
+        <field name="name">GVP Biogas Boys Sequence Fee Receipt</field>
+        <field name="code">fee.receipt.biogas.boys</field>
+        <field name="prefix">Micr. Boys/%(y)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="gvp_biogas_girl_seq_fee_receipt" model="ir.sequence">
+        <field name="name">GVP Biogas Girl Sequence Fee Receipt</field>
+        <field name="code">fee.receipt.biogas.girl</field>
+        <field name="prefix">Micr. Girl/%(y)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="gvp_gramservice_center_seq_fee_receipt" model="ir.sequence">
+        <field name="name">GVP Gramservice Center Sequence Fee Receipt</field>
+        <field name="code">fee.receipt.gramservice.center</field>
+        <field name="prefix">Gramseva Sadra/%(y)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

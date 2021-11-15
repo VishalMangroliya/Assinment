@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="external_layou">
+        <div class="row">
+            <div class="col-2">
+                <img t-if="user.company_id.logo"
+                     t-att-src="image_data_uri(user.company_id.logo)"
+                     style="max-height:80pt;max-width:80%" alt="GVP Logo"/>
+            </div>
+            <div class="col-8">
+                <center>
+                    <h4>
+                        <span t-esc="user.company_id.street"/>
+                    </h4>
+                    <h5>
+                        <u>
+                            <span t-esc="o.fee_department_id.name"/>
+                        </u>
+                        <br/>
+                        <strong>તા, જિ.</strong>
+                        <span
+                                t-esc="user.company_id.city"/>
+                        <strong>-</strong>
+                        <span t-esc="user.company_id.zip"/>
+                        <br/>
+                        ફોન :
+                        <span t-esc="user.company_id.phone"/>
+                    </h5>
+                </center>
+            </div>
+            <div class="col-2">
+                <b>
+                    <h6>
+                        <span t-esc="copy_type"/>
+                    </h6>
+                </b>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <div style="margin-left: 7%;">
+                            <t t-call="gvp_fee_receipt.external_layou">
+                                <t t-set="copy_type" t-value="'Office copy'"/>
+                            </t>
+                            <div class="row mt32 mb32"
+                                 style="line-height: 40%;">
+                                <div class="col-8">
+                                    <t t-if="o.rec_state == 'cancel'">
+                                        <s>Receipt No.
+                                        <u>
+                                            <strong>
+                                                <span t-esc="o.name"/>
+                                            </strong>
+                                        </u>
+                                        </s>
+                                    </t>
+                                    <t t-if="o.rec_state == 'done'">
+                                        Receipt No.
+                                        <u>
+                                            <strong>
+                                                <span t-esc="o.name"/>
+                                            </strong>
+                                        </u>
+                                    </t>
+                                </div>
+                                <div class="col-4" t-if="o.receive_date">
+                                    Receipt Date:
+                                    <u>
+                                        <strong>
+                                            <span t-field="o.receive_date"/>
+                                        </strong>
+                                    </u>
+                                </div>
+                            </div>
+                            <div class="row mt32 mb32"
+                                 style="line-height: 40%;">
+                                <div class="col-6">
+                                    <t t-if="o.rec_state == 'cancel'">
+                                        <s><t t-if="o.is_student">
+                                        <strong>Name Of Student:</strong>
+                                        </t>
+                                        <t t-if="o.is_student == False">
+                                            <strong>Name:</strong>
+                                        </t>
+                                        <u>
+                                            <span t-field="o.pay_name"/>
+                                        </u>
+                                        </s>
+                                    </t>
+                                    <t t-if="o.rec_state == 'done'">
+                                        <t t-if="o.is_student">
+                                            <strong>Name Of Student:</strong>
+                                        </t>
+                                        <t t-if="o.is_student == False">
+                                            <strong>Name:</strong>
+                                        </t>
+                                        <u>
+                                            <span t-field="o.pay_name"/>
+                                        </u>
+                                    </t>
+                                </div>
+                                <div class="col-4" t-if="o.is_student">
+                                    <strong>Course:</strong>
+                                    <u>
+                                        <span t-field="o.courses_id.name"/>
+                                    </u>
+                                </div>
+                                <div class="col-2" t-if="o.is_student">
+                                    <strong>Semester:</strong>
+                                    <t t-if="not o.is_semester">
+                                        <t t-if="o.edu_year == 'fy'">
+                                            <u>1, 2</u>
+                                        </t>
+                                        <t t-if="o.edu_year == 'sy'">
+                                            <u>3, 4</u>
+                                        </t>
+                                        <t t-if="o.edu_year == 'ty'">
+                                            <u>5, 6</u>
+                                        </t>
+                                    </t>
+                                    <t t-if="o.is_semester">
+                                        <u>
+                                            <span t-field="o.semester"/>
+                                        </u>
+                                    </t>
+                                </div>
+                            </div>
+                            <!--watermark-->
+                            <t t-if="o.rec_state == 'cancel'">
+                                <div class="watermark" style="position:absolute;opacity:0.25;font-size:3em;width:100%;text-align:center;z-index:1000;">
+                                    <img t-att-src="'/gvp_fee_receipt/static/src/img/cancel.jpg'"/>
+                                </div>
+                            </t>
+                            <!-- Other -->
+                            <table class="table table-bordered table-sm table_border"
+                                   t-if="o.is_student == False"
+                                   style="border: 2px solid black;">
+                                <tr style="width: 8%; border: 2px solid black;">
+                                    <th style="text-align: center; border: 2px solid black;">
+                                        Sr. No.
+                                    </th>
+                                    <th style="text-align: center; width: 74%; border: 2px solid black;">
+                                        Particulars
+                                    </th>
+                                    <th style="text-align: center; width: 19%; border: 2px solid black;">
+                                        Amount
+                                    </th>
+                                </tr>
+                                <tr style="height:145px; border: 2px solid black;">
+                                    <td style="text-align: center; width: 8%; border: 2px solid black;">
+                                        1
+                                    </td>
+                                    <td style="width: 74%; border: 2px solid black;">
+                                        <span t-esc="o.note"/>
+                                    </td>
+                                    <td style="text-align: right; width: 19%; border: 2px solid black;">
+                                        <span t-esc="o.total_amount"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td colspan="2"
+                                        style="border: 2px solid black;">
+                                        <strong>Total Amount</strong>
+                                        <br/>
+                                        (
+                                        <u>
+                                            <span t-esc="o.amount_to_text(o.total_amount)"/>
+                                            only
+                                        </u>
+                                        )
+                                    </td>
+                                    <td style="text-align: right; border: 2px solid black;">
+                                        <strong>
+                                            <span t-esc="o.total_amount"
+                                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- Student -->
+                            <table class="table table-bordered table-sm table_border"
+                                   t-if="o.is_student"
+                                   style="border: 2px solid black;">
+                                <tr style="border: 2px solid black;">
+                                    <th style="text-align: center; width: 8%; border: 2px solid black;">
+                                        Sr. No.
+                                    </th>
+                                    <th style="text-align: center; width: 74%; border: 2px solid black;">
+                                        Particulars
+                                    </th>
+                                    <th style="text-align: center; width: 18%; border: 2px solid black;">
+                                        Amount
+                                    </th>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="text-align: center; width: 8%; border: 2px solid black;">
+                                        1
+                                    </td>
+                                    <td style="width: 74%; border: 2px solid black;">
+                                        Admission Fees
+                                    </td>
+                                    <td style="text-align: right; width: 18%; border: 2px solid black;">
+                                        <span t-field="o.semester_fee"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="text-align: center; width: 8%; border: 2px solid black;">
+                                        2
+                                    </td>
+                                    <td style="width: 74%; border: 2px solid black;">
+                                        Tuition Fees
+                                    </td>
+                                    <td style="text-align: right; width: 18%; border: 2px solid black;">
+                                        <span t-field="o.education_fee"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="text-align: center; width: 8%; border: 2px solid black;">
+                                        3
+                                    </td>
+                                    <td style="width: 74%; border: 2px solid black;">
+                                        Misc.Fees
+                                    </td>
+                                    <td style="text-align: right; width: 18%; border: 2px solid black;">
+                                        <span t-esc="o.total_amount - o.semester_fee - o.education_fee - o.exam_fee - o.text_literature_fee"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="text-align: center; width: 8%; border: 2px solid black;">
+                                        4
+                                    </td>
+                                    <td style="width: 74%; border: 2px solid black;">
+                                        Exam Fees
+                                    </td>
+                                    <td style="text-align: right; width: 18%; border: 2px solid black;">
+                                        <span t-field="o.exam_fee"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr t-if="o.text_literature_fee"
+                                    style="border: 2px solid black;">
+                                    <td style="text-align: center; width: 8%; border: 2px solid black;">
+                                        5
+                                    </td>
+                                    <td style="width: 74%; border: 2px solid black;">
+                                        Pathya Chahitya
+                                    </td>
+                                    <td style="text-align: right; width: 18%; border: 2px solid black;">
+                                        <span t-field="o.text_literature_fee"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td colspan="2"
+                                        style="border: 2px solid black;">
+                                        <strong>Total Amount</strong>
+                                        <br/>
+                                        (
+                                        <u>
+                                            <span t-esc="o.amount_to_text(o.total_amount)"/>
+                                            only
+                                        </u>
+                                        )
+                                    </td>
+                                    <td style="text-align: right; border: 2px solid black;">
+                                        <strong>
+                                            <span t-esc="o.total_amount"
+                                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="row mt32 mb32"
+                                 style="line-height: 0%;">
+                                <t t-if="o.received_option != 'other'">
+                                    <div class="col-2">
+                                        <t t-if="o.received_option == 'cash'">
+                                            Cash
+                                        </t>
+                                        <t t-if="o.received_option == 'check'">
+                                            <h7>Check</h7>
+                                        </t>
+                                    </div>
+                                    <div class="col-6"
+                                         t-if="o.received_option == 'check'">
+                                        <h7>
+                                            <strong>Bank Name:</strong>
+                                            <span t-field="o.bank_name"/>
+                                        </h7>
+                                    </div>
+                                    <div class="col-4"
+                                         t-if="o.received_option == 'check'">
+                                        <h7>
+                                            <strong>Check Number:</strong>
+                                            <span t-field="o.check_number"/>
+                                        </h7>
+                                    </div>
+                                    <div class="col-10"
+                                         t-if="o.note and o.received_option == 'cash' and o.is_student">
+                                        <span t-field="o.note"/>
+                                    </div>
+                                </t>
+                                <t t-if="o.received_option == 'other'">
+                                    <div class="col-12">
+                                        <span t-field="o.other"/>
+                                    </div>
+                                </t>
+                            </div>
+                            <div class="row mt32 mb32">
+                                <div class="col-8">
+                                    <br/>
+                                    <br/>
+                                    <strong>Accountant</strong>
+                                </div>
+                                <div class="col-4">
+                                    <center>
+                                        <t t-if="user.digital_signature">
+                                            <img t-att-src="image_data_uri(user.digital_signature)"
+                                                 style="max-height:60pt;max-width:100%"
+                                                 alt="Signature"/>
+                                        </t>
+                                        <t t-if="not user.digital_signature">
+                                            <br/>
+                                            <br/>
+                                        </t>
+                                        <strong>Money Lenders</strong>
+                                    </center>
+                                </div>
+                            </div>
+                            <b>
+                                -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                            </b>
+                            <br/>
+                            <t t-call="gvp_fee_receipt.external_layou">
+                                <t t-if="o.is_student">
+                                    <t t-set="copy_type"
+                                       t-value="'Student copy'"/>
+                                </t>
+                                <t t-if="o.is_student == False">
+                                    <t t-set="copy_type"
+                                       t-value="'Depositor copy'"/>
+                                </t>
+                            </t>
+                            <div class="row mt32 mb32"
+                                 style="line-height: 40%;">
+                                <div class="col-8">
+                                    <t t-if="o.rec_state == 'cancel'">
+                                        <s>Receipt No.
+                                        <u>
+                                            <strong>
+                                                <span t-esc="o.name"/>
+                                            </strong>
+                                        </u>
+                                        </s>
+                                    </t>
+                                    <t t-if="o.rec_state == 'done'">
+                                        Receipt No.
+                                        <u>
+                                            <strong>
+                                                <span t-esc="o.name"/>
+                                            </strong>
+                                        </u>
+                                    </t>
+                                </div>
+                                <div class="col-4" t-if="o.receive_date">
+                                    Receipt Date:
+                                    <u>
+                                        <strong>
+                                            <span t-field="o.receive_date"/>
+                                        </strong>
+                                    </u>
+                                </div>
+                            </div>
+                            <div class="row mt32 mb32"
+                                 style="line-height: 40%;">
+                                <div class="col-6">
+                                    <t t-if="o.rec_state == 'cancel'">
+                                        <s><t t-if="o.is_student">
+                                        <strong>Name Of Student:</strong>
+                                        </t>
+                                        <t t-if="o.is_student == False">
+                                            <strong>Name:</strong>
+                                        </t>
+                                        <u>
+                                            <span t-field="o.pay_name"/>
+                                        </u>
+                                        </s>
+                                    </t>
+                                    <t t-if="o.rec_state == 'done'">
+                                        <t t-if="o.is_student">
+                                            <strong>Name Of Student:</strong>
+                                        </t>
+                                        <t t-if="o.is_student == False">
+                                            <strong>Name:</strong>
+                                        </t>
+                                        <u>
+                                            <span t-field="o.pay_name"/>
+                                        </u>
+                                    </t>
+                                </div>
+                                <div class="col-4" t-if="o.is_student">
+                                    <strong>Course:</strong>
+                                    <u>
+                                        <span t-field="o.courses_id.name"/>
+                                    </u>
+                                </div>
+                                <div class="col-2" t-if="o.is_student">
+                                    <strong>Semester:</strong>
+                                    <t t-if="not o.is_semester">
+                                        <t t-if="o.edu_year == 'fy'">
+                                            <u>1, 2</u>
+                                        </t>
+                                        <t t-if="o.edu_year == 'sy'">
+                                            <u>3, 4</u>
+                                        </t>
+                                        <t t-if="o.edu_year == 'ty'">
+                                            <u>5, 6</u>
+                                        </t>
+                                    </t>
+                                    <t t-if="o.is_semester">
+                                        <u>
+                                            <span t-field="o.semester"/>
+                                        </u>
+                                    </t>
+                                </div>
+                            </div>
+                            <!--watermark-->
+                            <t t-if="o.rec_state == 'cancel'">
+                                <div class="watermark" style="position:absolute;opacity:0.25;font-size:3em;width:100%;text-align:center;z-index:1000;">
+                                    <img t-att-src="'/gvp_fee_receipt/static/src/img/cancel.jpg'"/>
+                                </div>
+                            </t>
+                            <!-- Other -->
+                            <table class="table table-bordered table-sm table_border"
+                                   t-if="o.is_student == False"
+                                   style="border: 2px solid black;">
+                                <tr style="border: 2px solid black;">
+                                    <th style="text-align: center; width: 8%; border: 2px solid black;">
+                                        Sr. No.
+                                    </th>
+                                    <th style="text-align: center; width: 74%; border: 2px solid black;">
+                                        Particulars
+                                    </th>
+                                    <th style="text-align: center; width: 18%; border: 2px solid black;">
+                                        Amount
+                                    </th>
+                                </tr>
+                                <tr style="height:145px; border: 2px solid black;">
+                                    <td style="text-align: center; width: 8%; border: 2px solid black;">
+                                        1
+                                    </td>
+                                    <td style="width: 74%; border: 2px solid black;">
+                                        <span t-esc="o.note"/>
+                                    </td>
+                                    <td style="text-align: right; width: 18%; border: 2px solid black;">
+                                        <span t-esc="o.total_amount"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td colspan="2"
+                                        style="border: 2px solid black;">
+                                        <strong>Total Amount</strong>
+                                        <br/>
+                                        (
+                                        <u>
+                                            <span t-esc="o.amount_to_text(o.total_amount)"/>
+                                            only
+                                        </u>
+                                        )
+                                    </td>
+                                    <td style="text-align: right; border: 2px solid black;">
+                                        <strong>
+                                            <span t-esc="o.total_amount"
+                                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- Student -->
+                            <table class="table table-bordered table-sm table_border"
+                                   t-if="o.is_student"
+                                   style="border: 2px solid black;">
+                                <tr style="border: 2px solid black;">
+                                    <th style="text-align: center; width: 8%; border: 2px solid black;">
+                                        Sr. No.
+                                    </th>
+                                    <th style="text-align: center; width: 74%; border: 2px solid black;">
+                                        Particulars
+                                    </th>
+                                    <th style="text-align: center; width: 18%; border: 2px solid black;">
+                                        Amount
+                                    </th>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="text-align: center; width: 8%; border: 2px solid black;">
+                                        1
+                                    </td>
+                                    <td style="width: 74%; border: 2px solid black;">
+                                        Admission Fees
+                                    </td>
+                                    <td style="text-align: right; width: 18%; border: 2px solid black;">
+                                        <span t-field="o.semester_fee"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="text-align: center; width: 8%; border: 2px solid black;">
+                                        2
+                                    </td>
+                                    <td style="width: 74%; border: 2px solid black;">
+                                        Tuition Fees
+                                    </td>
+                                    <td style="text-align: right; width: 18%; border: 2px solid black;">
+                                        <span t-field="o.education_fee"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="text-align: center; width: 8%; border: 2px solid black;">
+                                        3
+                                    </td>
+                                    <td style="width: 74%; border: 2px solid black;">
+                                        Misc.Fees
+                                    </td>
+                                    <td style="text-align: right; width: 18%; border: 2px solid black;">
+                                        <span t-esc="o.total_amount - o.semester_fee - o.education_fee - o.exam_fee - o.text_literature_fee"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td style="text-align: center; width: 8%; border: 2px solid black;">
+                                        4
+                                    </td>
+                                    <td style="width: 74%; border: 2px solid black;">
+                                        Exam Fees
+                                    </td>
+                                    <td style="text-align: right; width: 18%; border: 2px solid black;">
+                                        <span t-field="o.exam_fee"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr t-if="o.text_literature_fee"
+                                    style="border: 2px solid black;">
+                                    <td style="text-align: center; width: 8%; border: 2px solid black;">
+                                        5
+                                    </td>
+                                    <td style="width: 74%; border: 2px solid black;">
+                                        Pathya Chahitya
+                                    </td>
+                                    <td style="text-align: right; width: 18%; border: 2px solid black;">
+                                        <span t-field="o.text_literature_fee"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr style="border: 2px solid black;">
+                                    <td colspan="2"
+                                        style="border: 2px solid black;">
+                                        <strong>Total Amount</strong>
+                                        <br/>
+                                        (
+                                        <u>
+                                            <span t-esc="o.amount_to_text(o.total_amount)"/>
+                                            only
+                                        </u>
+                                        )
+                                    </td>
+                                    <td style="text-align: right; border: 2px solid black;">
+                                        <strong>
+                                            <span t-esc="o.total_amount"
+                                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="row mt32 mb32"
+                                 style="line-height: 0%;">
+                                <t t-if="o.received_option != 'other'">
+                                    <div class="col-2">
+                                        <t t-if="o.received_option == 'cash'">
+                                            Cash
+                                        </t>
+                                        <t t-if="o.received_option == 'check'">
+                                            <h7>Check</h7>
+                                        </t>
+                                    </div>
+                                    <div class="col-6"
+                                         t-if="o.received_option == 'check'">
+                                        <h7>
+                                            <strong>Bank Name:</strong>
+                                            <span t-field="o.bank_name"/>
+                                        </h7>
+                                    </div>
+                                    <div class="col-4"
+                                         t-if="o.received_option == 'check'">
+                                        <h7>
+                                            <strong>Check Number:</strong>
+                                            <span t-field="o.check_number"/>
+                                        </h7>
+                                    </div>
+                                    <div class="col-10"
+                                         t-if="o.note and o.received_option == 'cash' and o.is_student">
+                                        <span t-field="o.note"/>
+                                    </div>
+                                </t>
+                                <t t-if="o.received_option == 'other'">
+                                    <div class="col-12">
+                                        <span t-field="o.other"/>
+                                    </div>
+                                </t>
+                            </div>
+                            <div class="row mt32 mb32">
+                                <div class="col-8">
+                                    <br/>
+                                    <br/>
+                                    <strong>Accountant</strong>
+                                </div>
+                                <div class="col-4">
+                                    <center>
+                                        <t t-if="user.digital_signature">
+                                            <img t-att-src="image_data_uri(user.digital_signature)"
+                                                 style="max-height:60pt;max-width:100%"
+                                                 alt="Signature"/>
+                                        </t>
+                                        <t t-if="not user.digital_signature">
+                                            <br/>
+                                            <br/>
+                                        </t>
+                                        <strong>Money Lenders</strong>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

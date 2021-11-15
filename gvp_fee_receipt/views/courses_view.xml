@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="courses_courses_inherit_form_view" model="ir.ui.view">
+        <field name="name">courses.courses.inherit.form.view</field>
+        <field name="model">courses.courses</field>
+        <field name="inherit_id" ref="gvp_students_admission.courses_courses_form_view"/>
+        <field name="arch" type="xml">
+            <!-- add before the Access Rights section -->
+            <xpath expr="//form/sheet/notebook" position="inside">
+                <page string="Fees">
+                    <group col="2">
+                        <group>
+                            <field name="is_semester"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Search View Of Fee courses.courses -->
+    <record id="courses_courses_search_view" model="ir.ui.view">
+        <field name="name">courses.courses.search.view</field>
+        <field name="model">courses.courses</field>
+        <field name="arch" type="xml">
+            <search string="Courses">
+                <filter string="Fees payment by Semester" name="fees_semester"
+                        domain="[('is_semester','=',True)]"/>
+                <filter string="Fees payment by Year" name="fees_year"
+                        domain="[('is_semester','=',False)]"/>
+                <group expand="0" name="group_by" string="Group By">
+                    <filter name="is_semester" string="Fees Payment by Semester"
+                            domain="[]"
+                            context="{'group_by' : 'is_semester'}"/>
+                    <filter name="company_id" string="Department"
+                            domain="[]"
+                            context="{'group_by' : 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Of Form & Tree Views Of Courses Information -->
+    <record id="gvp_students_admission.action_courses_courses" model="ir.actions.act_window">
+        <field name="name">Courses</field>
+        <field name="res_model">courses.courses</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+</odoo>
