@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo noupdate="1">
+    <!-- Student Religion/caste -->
+    <record id="demo_student_cast_1" model="student.cast">
+        <field name="name">Hindu</field>
+    </record>
+    <record id="demo_student_cast_2" model="student.cast">
+        <field name="name">Muslim</field>
+    </record>
+    <record id="demo_student_cast_3" model="student.cast">
+        <field name="name">Christian</field>
+    </record>
+    <record id="demo_student_cast_4" model="student.cast">
+        <field name="name">Punjabi</field>
+    </record>
+    <record id="demo_student_cast_5" model="student.cast">
+        <field name="name">Parsi</field>
+    </record>
+</odoo>

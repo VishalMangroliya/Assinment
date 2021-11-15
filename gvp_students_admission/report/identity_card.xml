@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="identity_card">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+            <div class="page" style="height: 2px;">
+                <t t-foreach="docs" t-as="o">
+                    <div class="oe_structure"/>
+                    <br/>
+<!--                    <div class="row">-->
+<!--                        <div class="col-sm-6" style="border: 2px solid black;">-->
+<!--                            <div class="row" style="line-height: 40%;background-color: #8383f1; border: 1px solid #8383f1;">-->
+<!--                                <div class="col-sm-4">-->
+<!--                                    <img t-if="o.company_id.logo"-->
+<!--                                         t-att-src="image_data_uri(o.company_id.logo)" style="max-height:45pt;max-width:70%" alt="Company Logo"/>-->
+<!--                                </div>-->
+<!--                                <div class="col-sm-8">-->
+<!--                                     <strong>-->
+<!--                                         Gujarat Vidyapith<br/>-->
+<!--                                         <span t-field="o.company_id.name"/>-->
+<!--                                    </strong>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-sm-6" style="border: 2px solid black;"/>-->
+<!--                    </div>-->
+                    <table width="50%" height="20px"
+                           style="border: 2px solid black; border-spacing: 0px;" class="table table-bordered table-sm table_border">
+                        <table width="50%" height="20px" class="table-sm"
+                           style="border: 2px solid black; border-spacing: 0px;">
+                            <tr style="background-color: #01064c; border: 1px solid #01064c; color: white;">
+                                <td width="10%" style="border: 1px solid #01064c;">
+                                    <img t-if="o.company_id.logo"
+                                         t-att-src="image_data_uri(o.company_id.logo)" style="max-height:45pt;max-width:50%" alt="Company Logo"/>
+                                </td>
+                                <td width="90%" align="center"
+                                    height="30">
+                                    <strong style="font-size: 20px;">
+                                        Gujarat Vidyapith : AHMEDABAD
+                                    </strong><br/>
+                                    <strong><span t-field="o.company_id.name"/></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-family: 'Helvetica';padding-left:20px;padding-top:20px;" colspan="2">
+    <!--                                <img alt="Barcode" t-if="len(o.library_acco_number) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', quote_plus(o.library_acco_number or ''), 600, 100)" style="width:70%;height:4rem;"/>-->
+    <!--                                <img alt="Barcode" t-elif="len(o.library_acco_number) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', quote_plus(o.library_acco_number or ''), 600, 100)" style="width:70%;height:4rem;"/>-->
+    <!--                                <img alt="Barcode" t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(o.library_acco_number or ''), 700, 100)" style="width:70%;height:4rem"/>-->
+                                    <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(o.library_acco_number or ''), 1000, 30)" style="width:80%;height:2rem"/>
+                                    <span t-field="o.library_acco_number"/>
+                                </td>
+                            </tr>
+                            <tr height="10px">
+                                <td rowspan="5">
+                                    <img t-if="o.photo"
+                                         t-att-src="'data:image/png;base64,%s' % to_text(o.photo)"
+                                         style="height:30%;width=10%"/>
+                                </td>
+                                <td style="font-family: 'Helvetica';padding-left:20px;padding-top:5px;">
+                                    <strong>Name:</strong>
+                                    <span t-field="o.name"/>
+                                    <span t-field="o.middle"/>
+                                    <span t-field="o.last"/>
+                                </td>
+                            </tr>
+                            <tr height="10px">
+                                <td style="font-family: 'Helvetica';padding-left:20px;">
+                                    <strong>G.R.No:</strong>
+                                    <span t-field="o.enrolment_number"/>
+                                </td>
+                            </tr>
+    <!--                        <tr>-->
+    <!--                            <td style="font-family: 'Helvetica';padding-left:20px:">-->
+    <!--                                <strong>Address:</strong>-->
+    <!--                                <span t-field="o.street"/>-->
+    <!--                                <span t-field="o.street2"/>-->
+    <!--                                <span t-field="o.city"/>-->
+    <!--                                <span t-field="o.zip"/>-->
+    <!--                            </td>-->
+    <!--                        </tr>-->
+                            <tr height="10px">
+                                <td style="font-family: 'Helvetica';padding-left:20px;">
+                                    <strong>Programme:</strong>
+                                    <span t-field="o.courses_id.name"/>
+                                </td>
+                            </tr>
+                            <tr height="10px">
+                                <td style="font-family: 'Helvetica';padding-left:20px;">
+                                    <strong>Year of Admission:</strong>
+                                    Sem-<span t-field="o.semester"/>,
+                                    <span t-field="o.year"/>
+                                </td>
+                            </tr>
+                            <tr height="10px">
+                                <td style="font-family: 'Helvetica';padding-left:20px;">
+                                    <strong>BirthDate:</strong>
+                                    <span t-field="o.date_of_birth"/>
+                                </td>
+                            </tr>
+                             <tr height="10px" style="background-color: #01064c; border: 1px solid #01064c; color: white;">
+                                <td style="border: 1px solid #01064c;" colspan="2">
+                                    <div width="100%">
+                                        <p stype="text-align: left;">IDENTITY CARD</p>
+                                        <p stype="text-align: right;">Registrar</p>
+                                    </div>
+                                </td>
+<!--                                <td width="75%" style="text-align: right;">-->
+<!--                                   Registrar-->
+<!--                                </td>-->
+                            </tr>
+    <!--                        <tr>-->
+    <!--                            <td style="font-family: 'Helvetica';padding-left:20px;">-->
+    <!--                                <strong>Blood Group:-->
+    <!--                                </strong>-->
+    <!--                                <span t-field="o.blood_group"/>-->
+    <!--                            </td>-->
+    <!--                        </tr>-->
+                        </table>
+                    </table>
+                </t>
+            </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- Form View Of School Attendace -->
+    <record id="view_school_attendance_form" model="ir.ui.view">
+        <field name="name">school.attendance.form</field>
+        <field name="model">attendance.type</field>
+        <field name="arch" type="xml">
+            <form string="Standard Information">
+                <separator string="Attendance Type"/>
+                <group col="4" colspan="2">
+                    <field name="name" placeholder="name"/>
+                    <field name="code" placeholder="code"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View Of Student Caste -->
+    <record id="view_student_caste_tree" model="ir.ui.view">
+        <field name="name">student.caste.tree</field>
+        <field name="model">student.cast</field>
+        <field name="arch" type="xml">
+            <tree string="Caste Information" editable="bottom">
+                <field name="name" placeholder="Enter Name"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Form View Of Student Caste -->
+    <record id="view_student_caste_form" model="ir.ui.view">
+        <field name="name">student.caste.form</field>
+        <field name="model">student.cast</field>
+        <field name="arch" type="xml">
+            <form string="Caste Information">
+                <sheet>
+                    <group>
+                        <field name="name" placeholder="Religion"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Action Of Form & Tree Views Of Student Caste -->
+    <record id="action_student_cast_form_7" model="ir.actions.act_window">
+        <field name="name">Religion/Caste</field>
+        <field name="res_model">student.cast</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- From View Of Academic Year's Information -->
+    <record id="view_academic_year_form" model="ir.ui.view">
+        <field name="name">acdemic.year.form</field>
+        <field name="model">academic.year</field>
+        <field name="arch" type="xml">
+            <form string="Academic Years">
+                <header>
+                    <button name="generate_academicmonth" type="object"
+                            string="Generate Months"/>
+                </header>
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="name" placeholder="Name"/>
+                        <field name="code" placeholder="Code"/>
+                        <field name="date_start" placeholder="Start Date"/>
+                        <field name="date_stop" placeholder="Stop Date"/>
+                        <field name="sequence"/>
+                        <field name="current"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Months">
+                            <field name="month_ids" nolabel="1" colspan="4"
+                                   options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}">
+                                <tree string="Months">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="date_start"/>
+                                    <field name="date_stop"/>
+                                </tree>
+                                <form string="Months">
+                                    <group col="4" colspan="4">
+                                        <field name="name" placeholder="Name"/>
+                                        <field name="code" placeholder="Code"/>
+                                        <field name="date_start"
+                                               placeholder="Start Date"/>
+                                        <field name="date_stop"
+                                               placeholder="Stop Date"/>
+                                        <field name="description" colspan="4"
+                                               placeholder="Description"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                    <newline/>
+                    <separator string="Description" colspan="4"/>
+                    <field name="description" colspan="4"
+                           placeholder="Description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Tree View Of Academic Year's Information -->
+    <record id="view_academic_year_tree" model="ir.ui.view">
+        <field name="name">academic.year.tree</field>
+        <field name="model">academic.year</field>
+        <field name="arch" type="xml">
+            <tree string="Academic Years" decoration-success="current"
+                  decoration-danger="not current">
+                <field name="sequence" widget='handle'/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="date_start"/>
+                <field name="date_stop"/>
+                <field name="current" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <!-- From View Of Academic Month's Information -->
+    <record id="view_academic_month_form" model="ir.ui.view">
+        <field name="name">academic.month.form</field>
+        <field name="model">academic.month</field>
+        <field name="arch" type="xml">
+            <form string="Months">
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="name" placeholder="Name"/>
+                        <field name="code" placeholder="Code"/>
+                        <field name="date_start" placeholder="Start Date"/>
+                        <field name="date_stop" placeholder="Stop Date"/>
+                        <field name="year_id" colspan="4" placeholder="Year"
+                               options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                        <field name="description" colspan="4"
+                               placeholder="Description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Tree View Of Academic Month's Information -->
+    <record id="view_academic_month_tree" model="ir.ui.view">
+        <field name="name">academic.month.tree</field>
+        <field name="model">academic.month</field>
+        <field name="arch" type="xml">
+            <tree string="Months">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="date_start"/>
+                <field name="date_stop"/>
+                <field name="year_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View Of Subject's Information -->
+    <record id="view_subject_subject_form" model="ir.ui.view">
+        <field name="name">subject.subject.form</field>
+        <field name="model">subject.subject</field>
+        <field name="arch" type="xml">
+            <form string="Subjects">
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="name" placeholder="Name"/>
+                        <field name="code" placeholder="Code"/>
+                        <field name="semester" required="1"/>
+                        <field name="employee_id" readonly="1"/>
+                        <field name="is_practical"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Papers" nolabel="1" colspan="4">
+                            <field name="subject_paper_ids">
+                                <tree string="Subject paper" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="paper"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Tree View Of Subject's Information -->
+    <record id="view_subject_subject_tree" model="ir.ui.view">
+        <field name="name">subject.subject.tree</field>
+        <field name="model">subject.subject</field>
+        <field name="arch" type="xml">
+            <tree string="Subjects">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View Of Courses Information -->
+    <record id="courses_courses_form_view" model="ir.ui.view">
+        <field name="name">courses.courses.form</field>
+        <field name="model">courses.courses</field>
+        <field name="arch" type="xml">
+            <form string="Standard Information">
+                <sheet>
+                    <group col="4" colspan="4">
+                        <field name="name"
+                               placeholder="Name (EX. B.A. (English))"/>
+                        <field name="year" placeholder="Number Of Years"/>
+                        <field name="company_id"/>
+                        <newline/>
+                        <field name="description" colspan="4"
+                               placeholder="Description"/>
+                    </group>
+                    <notebook>
+                        <page string="Subjects">
+                            <field name="subject_ids" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View Of Courses Information -->
+    <record id="courses_courses_tree_view" model="ir.ui.view">
+        <field name="name">courses.courses.tree</field>
+        <field name="model">courses.courses</field>
+        <field name="arch" type="xml">
+            <tree string="Standard Information">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="year"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action Of Form & Tree Views Of Academic Year Information -->
+    <record id="action_academic_year_form" model="ir.actions.act_window">
+        <field name="name">Academic Years</field>
+        <field name="res_model">academic.year</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action Of Form & Tree Views Of Academic Month Information -->
+    <record id="action_academic_month_form" model="ir.actions.act_window">
+        <field name="name">Months</field>
+        <field name="res_model">academic.month</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action Of Form & Tree Views Of Subject Information -->
+    <record id="action_subject_subject_form" model="ir.actions.act_window">
+        <field name="name">Subjects</field>
+        <field name="res_model">subject.subject</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action Of Form & Tree Views Of Courses Information -->
+    <record id="action_courses_courses" model="ir.actions.act_window">
+        <field name="name">Courses</field>
+        <field name="res_model">courses.courses</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Item Of EMS -->
+    <menuitem id="menu_gvp" name="GVP-Sadra"
+              web_icon="gvp_students_admission,static/description/icon.png"
+              sequence="1"/>
+
+    <!-- MenuItem Of Admission Register -->
+    <menuitem id="admission_register" name="Admission Register"
+              parent="menu_gvp" sequence="1"
+              groups="gvp_students_admission.group_school_administration,gvp_students_admission.group_is_admission"/>
+    <menuitem id="menu_admission_form" name="Admission Register"
+              parent="admission_register"
+              action="action_student_student_form_2" sequence="1"
+              groups="gvp_students_admission.group_school_administration,gvp_students_admission.group_is_admission"/>
+
+    <!-- Menu Item Of Students & Parents -->
+    <menuitem id="menu_students_parents" name="Profiles" parent="menu_gvp"
+              sequence="3"/>
+    <menuitem id="menu_student_profile" name="Students"
+              parent="menu_students_parents"
+              action="action_student_student_form_12"
+              groups="gvp_students_admission.group_school_administration,gvp_students_admission.group_school_student,gvp_students_admission.group_professor,gvp_students_admission.group_school_parent"
+              sequence="31"/>
+
+    <!-- MenuItem For Configurations -->
+    <menuitem id="menu_configuration" name="Configurations" parent="menu_gvp"
+              sequence="13" groups="group_school_administration"/>
+
+    <!-- MenuItem For Configurations->School Configurations -->
+    <menuitem id="menu_school_config_form1" name="College Configurations"
+              parent="menu_configuration"/>
+    <menuitem id="menu_cast" name="Religion/Caste"
+              parent="menu_school_config_form1"
+              action="action_student_cast_form_7"/>
+
+    <menuitem id="menu_department_sub_form" name="Department"
+              parent="menu_school_config_form1"
+              action="base.action_res_company_form"/>
+
+    <!-- MenuItem For Configurations->Academic Years -->
+    <menuitem id="menu_academic_year_form" name="Academic Years"
+              parent="menu_configuration"/>
+    <menuitem id="menu_academic_year_sub_form" name="Years"
+              parent="menu_academic_year_form"
+              action="action_academic_year_form"/>
+    <menuitem id="menu_academic_month_form" name="Months"
+              parent="menu_academic_year_form"
+              action="action_academic_month_form"/>
+    <menuitem id="menu_courses_courses" name="Course"
+              parent="menu_school_config_form1"
+              action="action_courses_courses"/>
+    <menuitem id="menu_subject_subject_form" name="Subjects"
+              parent="menu_configuration" sequence="10"/>
+    <menuitem id="menu_subject_subject_sub_form" name="Subjects"
+              parent="menu_subject_subject_form"
+              action="action_subject_subject_form"/>
+    <menuitem id="menu_student_alumni" name="Alumni/Terminate/Detained"
+              action="action_student_alumni" parent="admission_register"
+              groups="gvp_students_admission.group_school_administration,gvp_students_admission.group_professor"
+              sequence="2"/>
+    <menuitem
+            id="hr.menu_hr_root"
+            name="Employees"
+            groups="-hr.group_hr_manager,-hr.group_hr_user,-base.group_user,gvp_students_admission.group_school_administration"
+            web_icon="hr,static/description/icon.png"
+            sequence="75"/>
+
+    <!-- MenuItem For Configurations->Subject -->
+    <!-- Inherited Form View Of Company -->
+    <record id="view_company_form_inherit" model="ir.ui.view">
+        <field name="name">res.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="attributes">
+                <attribute name="string">School Name</attribute>
+            </field>
+        </field>
+    </record>
+    <report
+            id="account.action_report_print_overdue"
+            model="res.partner"
+            report_type="qweb-pdf"
+            string="Due Payments"
+            name="account.report_overdue"
+            file="account.report_overdue"
+            groups="gvp_students_admission.group_school_administration"/>
+    <report
+            id="account.action_report_partnerledger"
+            model="account.report_partnerledger"
+            string="Partner Ledger"
+            report_type="qweb-pdf"
+            name="account.report_partnerledger"
+            file="account.report_partnerledger"
+            groups="gvp_students_admission.group_school_administration"/>
+
+    <act_window
+            id="account.act_account_partner_ledger_payable"
+            name="Partner Ledger: Payable"
+            res_model="account.move.line"
+            context="{'search_default_partner_id':[active_id], 'search_default_unreconciled':1, 'search_default_payable':1}"
+            src_model="res.partner"
+            groups="gvp_students_admission.group_school_administration"/>
+    <act_window
+            id="account.act_account_partner_ledger_payable_no_partner"
+            name="Unknown Partner Ledger"
+            res_model="account.move.line"
+            context="{'search_default_unreconciled':1, 'search_default_payable':1}"
+            domain="[('partner_id', '=', False)]"
+            src_model="res.partner"
+            groups="gvp_students_admission.group_school_administration"/>
+    <act_window
+            id="account.act_account_partner_ledger_receivable"
+            name="Partner Ledger: Receivable"
+            res_model="account.move.line"
+            context="{'search_default_partner_id':[active_id], 'search_default_unreconciled':1, 'search_default_receivable':1}"
+            src_model="res.partner"
+            groups="gvp_students_admission.group_school_administration"/>
+    <act_window
+            id="account.act_account_partner_ledger_receivable_no_partner"
+            name="Unknown Partner Ledger"
+            res_model="account.move.line"
+            context="{'search_default_unreconciled':1, 'search_default_receivable':1}"
+            domain="[('partner_id', '=', False)]"
+            src_model="res.partner"
+            groups="gvp_students_admission.group_school_administration"/>
+    <act_window
+            id="account.action_move_select"
+            name="Journal Entries"
+            context="{'search_default_dummy_account_id': [active_id]}"
+            res_model="account.move"
+            groups="gvp_students_admission.group_school_administration"
+    />
+    <act_window
+            id="account.action_move_line_select_by_partner"
+            name="Journal Items"
+            context="{'search_default_partner_id': [active_id]}"
+            res_model="account.move.line"
+            src_model="res.partner"
+            groups="gvp_students_admission.group_school_administration"/>
+</odoo>

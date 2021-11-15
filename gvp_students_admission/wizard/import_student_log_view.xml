@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- Import Students Log Tree View  -->
+    <record id="import_students_log_tree_view" model="ir.ui.view">
+        <field name="name">import.students.log.tree</field>
+        <field name="model">import.students.log</field>
+        <field name="arch" type="xml">
+            <tree string="Import Students Log" create="false" edit="false" delete="false">
+                <field name="name"/>
+                <field name="enrolment_number"/>
+                <field name="courses_id"/>
+                <field name="operation"/>
+                <field name="status"/>
+                <field name="log_msg"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View Of Import Students Log -->
+    <record id="import_students_log_search_view" model="ir.ui.view">
+        <field name="name">import.students.log.search.view</field>
+        <field name="model">import.students.log</field>
+        <field name="arch" type="xml">
+            <search string="Student Information Log">
+                <group>
+                    <field name="operation"/>
+                </group>
+                <group expand="0" string="Group By">
+                    <filter name="operation" string="Operation" domain="[]" context="{'group_by':'operation'}"/>
+                    <filter name="status" string="Status" domain="[]" context="{'group_by':'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Of Import Students Log -->
+    <record id="action_import_students_log" model="ir.actions.act_window">
+        <field name="name">Import Students Log</field>
+        <field name="res_model">import.students.log</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,search</field>
+        <field name="context">{'search_default_operation': '1', 'search_default_status': '1'}</field>
+    </record>
+
+    <!-- MenuItem For Wiz import Student -->
+    <menuitem id="menu_import_students_log" name="Import Students Log"
+              parent="admission_register" action="action_import_students_log"
+              sequence="5"/>
+
+</odoo>

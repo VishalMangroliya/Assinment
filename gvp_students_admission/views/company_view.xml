@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="res_company_form_inherit" model="ir.ui.view">
+        <field name="name">res.company.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="logo" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button t-if="courses_count" class="btn oe_stat_button" name="action_courses_rec"
+                            type="object" icon="fa-book" attrs="{'invisible':[('courses_count','=', 0)]}">
+                        <field string="Courses Count" name="courses_count" widget="statinfo"/>
+                    </button>
+                </div>
+            </field>
+        </field>
+    </record>
+</odoo>

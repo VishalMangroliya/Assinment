@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- Move Semester Wizard Form View  -->
+    <record id="move_semester_form_view" model="ir.ui.view">
+        <field name="name">move.semester.form.view</field>
+        <field name="model">move.semester</field>
+        <field name="arch" type="xml">
+            <form string="Move Semester">
+                <header>
+                    <button class="btn-primary" name="move_start" string="Move" type="object" icon="fa-angle-double-right"/>
+                </header>
+                <group col="4">
+                    <field name="status" required='1'/>
+                    <field name="courses_id" placeholder="Select Courses"
+                           options="{'no_create_edit': True, 'no_open': True}"/>
+                    <field name="semester"/>
+                    <field name="move_semester"/>
+                </group>
+                <group string="Students">
+                    <field name="student_ids" nolabel="1">
+                        <tree create="0" edit="0" delete="0" editable="top" decoration-muted="state == 'detained'">
+                            <field name="photo" widget='image' class="oe_avatar rounded-circle" options='{"class": "rounded-circle", "preview_image": "image_small", "size": [50, 50]}'/>
+                            <field name="enrolment_number" readonly="1"/>
+                            <field name="student_name" readonly="1"/>
+                            <field name="middle" readonly="1"/>
+                            <field name="last" readonly="1"/>
+                            <field name="student_name" readonly="1"/>
+                            <field name="year" readonly="1"/>
+                            <field name="state" invisible="1"/>
+                            <button name="semester_move" string="Regular" states="done"
+                                    type="object" icon="fa-check text-success" context="{'state_done': True, 'rec_id': id}"/>
+                            <button name="semester_move" string="Detain" context="{'state_detain': True, 'rec_id': id}" states="detained" type="object"
+                                    icon="fa-window-close text-danger"/>
+                        </tree>
+                    </field>
+                </group>
+<!--                <footer>-->
+<!--                    -->
+<!--                </footer>-->
+            </form>
+        </field>
+    </record>
+
+    <!-- Action Of Move Semester -->
+    <record id="action_move_semester_form" model="ir.actions.act_window">
+        <field name="name">Move Semester</field>
+        <field name="res_model">move.semester</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="move_semester_form_view"/>
+<!--        <field name="target">new</field>-->
+    </record>
+
+    <!-- MenuItem For Configurations->Move Classes -->
+    <menuitem id="menu_move_semester_form" name="Move Semester" parent="menu_configuration"
+              action="action_move_semester_form"/>
+
+</odoo>

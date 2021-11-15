@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<odoo>
+    <!-- search View Of Subject Paper -->
+    <record id="subject_paper_search_view" model="ir.ui.view">
+        <field name="name">subject.papert.search.view</field>
+        <field name="model">subject.paper</field>
+        <field name="arch" type="xml">
+            <search string="Search Parent">
+                <field name="subject_id"/>
+                <group expand="0" string="Group By..." colspan="12" col="10">
+                    <filter name="subject" string="Subject" help="By Subject"
+                            context="{'group_by':'subject_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- tree View Of Subject Paper -->
+    <record id="subject_paper_tree_view" model="ir.ui.view">
+        <field name="name">subject.paper.tree.view</field>
+        <field name="model">subject.paper</field>
+        <field name="arch" type="xml">
+            <tree string="Subject Paper">
+                <field name="name"/>
+                <field name="paper"/>
+                <field name="subject_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View Of Subject paper -->
+    <record id="subject_paper_form_view" model="ir.ui.view">
+        <field name="name">subject.paper.form.view</field>
+        <field name="model">subject.paper</field>
+        <field name="arch" type="xml">
+            <form string="Subject Paper">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="subject_id"/>
+                        <field name="paper" class="oe_avatar"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action View Of Subject Paper-->
+    <record id="action_subject_paper_form" model="ir.actions.act_window">
+        <field name="name">Subject Paper</field>
+        <field name="res_model">subject.paper</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_subject':1}</field>
+    </record>
+
+    <menuitem id="menu_res_partner_form" name="Papers"
+              parent="menu_subject_subject_form"
+              action="action_subject_paper_form" sequence="33"
+              groups="gvp_students_admission.group_school_administration,gvp_students_admission.group_professor"/>
+</odoo>

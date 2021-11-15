@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- Form View Of Time Table -->
+    <record id="view_time_table_form" model="ir.ui.view">
+        <field name="name">time.table.form</field>
+        <field name="model">time.table</field>
+        <field name="arch" type="xml">
+            <form string="Time Table">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="year"/>
+                    </group>
+                    <group string="Time Table Lines">
+                        <field name="time_table_ids" nolabel="1">
+                            <tree string="time.table" editable="bottom">
+                                <field name="start_time" widget="float_time"/>
+                                <field name="end_time" widget="float_time"/>
+                                <field name="days"/>
+                                <field name="time_table_id" invisible="1"/>
+                                <field name="subject_ids" widget="many2many_tags"
+                                       options="{'no_create_edit': True}"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View Of Time Table -->
+    <record id="view_time_table_tree" model="ir.ui.view">
+        <field name="name">time.table.tree</field>
+        <field name="model">time.table</field>
+        <field name="arch" type="xml">
+            <tree string="Time Table">
+                <field name="name"/>
+                <field name="year"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action Of Form & Tree Views Of Time Table -->
+    <record id="action_time_table_form" model="ir.actions.act_window">
+        <field name="name">Time Table</field>
+        <field name="res_model">time.table</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <menuitem id="menu_time_table" name="Time Table"
+              parent="menu_school_config_form1"
+              action="action_time_table_form"/>
+</odoo>

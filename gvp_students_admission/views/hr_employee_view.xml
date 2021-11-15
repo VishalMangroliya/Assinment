@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="view_employee_form_inherit" model="ir.ui.view">
+        <field name="name">view.employee.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="category_ids" position="after">
+                <group col="2">
+                    <field name="is_professor"/>
+                </group>
+            </field>
+            <field name="work_email" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+            <xpath expr="//notebook" position="inside">
+                <page string="Courses And Subjects"
+                      attrs="{'invisible': [('is_professor', '=', False)]}">
+                    <group>
+                        <field name="courses_subjects_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="courses_id"
+                                       options='{"no_open": True, "no_create": True}'/>
+                                <field name="subject_ids"
+                                       widget="many2many_tags"
+                                       options='{"no_open": True, "no_create": True}'/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem id="teacher_profile_menu" name="Employee"
+              action="hr.open_view_employee_list_my"
+              parent="menu_students_parents" sequence="32"
+              groups="gvp_students_admission.group_school_administration,gvp_students_admission.group_professor"/>
+
+</odoo>
